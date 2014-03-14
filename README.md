@@ -1,6 +1,6 @@
 qtil
 ====
-PHP 5.5+ utility library
+PHP 5.5+ utility library 
 
 [![Build Status](https://travis-ci.org/jgswift/qtil.png?branch=master)](https://travis-ci.org/jgswift/qtil)
 

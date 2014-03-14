@@ -1,5 +1,5 @@
 <?php
-namespace qtil\Reflector {
+namespace qtil {
     class ReflectorUtil {
         /**
          * parses absolute class path

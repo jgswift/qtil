@@ -1,5 +1,6 @@
 <?php
 namespace qtil\Tests {
+    use qtil\Identifier;
     /**
     * Base qtil test case class
     * Class qtilTestCase
@@ -18,6 +19,7 @@ namespace qtil\Tests {
          */
         protected function tearDown()
         {
+            Identifier::clearSchemes();
         }
     }
 }

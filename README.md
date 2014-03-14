@@ -1,6 +1,6 @@
 qtil
 ====
-PHP 5.5+ utility library 
+PHP 5.5+ utility library
 
 [![Build Status](https://travis-ci.org/jgswift/qtil.png?branch=master)](https://travis-ci.org/jgswift/qtil)
 
@@ -120,6 +120,78 @@ $foo->baz = 'rus';
 foreach($foo as $name => $value) {
     var_dump($name,$value); // returns bar => baz, then baz => rus
 }
+```
+
+Qtil contains a small utility to easily customize how objects are identified.
+
+There are some default schemes for identifying objects that ensures individual object instances are identified respectively.  You can use this functionality instead of spl_object_hash to ensure identifier uniqueness.  Alternatively, a number of built-in schemes are available.
+
+The following is the minimal example, using the default scheme
+```php
+<?php
+class Foo
+{
+
+}
+
+$foo = new Foo();
+$id = qtil\Identifier::identify($foo); // Returns an unique hash
+```
+
+With a minor change, you can encapsulate the identification behavior in your own class
+
+```php
+class Foo
+{
+    function getID() {
+        return qtil\Identifier::identify($this);
+    }
+}
+
+$foo = new Foo();
+$id = $foo->getID(); // Returns an unique hash
+```
+
+Alternatively, qtil provides a number of built-in schemes using a variety of ways to determine how to identify an object.
+
+```php
+class Foo
+{
+    function getID() {
+        return qtil\Identifier::identify($this);
+    }
+
+    function getUniqueID() {
+        return 1;
+    }
+}
+
+qtil\Identifier::addScheme(
+    new qtil\Identifier\Scheme\MethodScheme('getUniqueID')
+);
+
+$foo = new Foo();
+$id = $foo->getID(); // Returns 1
+```
+
+You may provide a custom callback method for most schemes
+
+```php
+class Foo
+{
+    function getID() {
+        return qtil\Identifier::identify($this);
+    }
+}
+
+qtil\Identifier::addScheme(
+    new qtil\Identifier\Scheme\ClassScheme('Foo',function() {
+        return 1;
+    })
+);
+
+$foo = new Foo();
+$id = $foo->getID(); // Returns 1
 ```
 
 Note: qtil additionally provides implementations for several standard design patterns such as Factory, Proxy, Command, and Method Chaining.  Please consult unit tests for implementation details.

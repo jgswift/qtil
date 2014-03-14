@@ -13,8 +13,7 @@
         }
     ],    
     "require": {
-        "php": ">=5.5",
-        "jgswift/kindentfy": "dev-master"
+        "php": ">=5.5"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"

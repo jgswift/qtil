@@ -7,7 +7,8 @@ namespace qtil\Identifier {
      */
     class TraitScheme extends Scheme {
         /**
-         * @param mixed $object
+         * Checks if object meets identification criteria
+         * @param object $object
          * @return boolean
          */
         function applies($object) {

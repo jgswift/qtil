@@ -1,6 +1,15 @@
 <?php
 namespace qtil\Identifier {
+    /**
+     * Method scheme
+     * @package qtil
+     */
     class MethodScheme extends Scheme {
+        /**
+         * Checks if object meets identification criteria
+         * @param object $object
+         * @return boolean
+         */
         function applies($object) {
             $methods = get_class_methods(get_class($object));
             
@@ -8,8 +17,13 @@ namespace qtil\Identifier {
             return !empty($intersect);
         }
         
+        /**
+         * Identification by method
+         * @param object $object
+         * @return string
+         * @throws \qtil\Exception
+         */
         function getIdentity($object) {
-            echo 'test';
             if(!empty($this->identifyCallback)) {
                 return parent::getIdentity($object);
             }

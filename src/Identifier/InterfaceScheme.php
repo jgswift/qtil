@@ -1,6 +1,15 @@
 <?php
 namespace qtil\Identifier {
+    /**
+     * Interface scheme
+     * @package qtil
+     */
     class InterfaceScheme extends Scheme {
+        /**
+         * Checks if object meets identification criteria
+         * @param object $object
+         * @return boolean
+         */
         function applies($object) {
             if(!empty($this->options)) {
                 foreach($this->options as $interface) {

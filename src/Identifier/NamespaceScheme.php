@@ -1,6 +1,15 @@
 <?php
 namespace qtil\Identifier {
+    /**
+     * Namespace scheme
+     * @package qtil
+     */
     class NamespaceScheme extends Scheme {
+        /**
+         * Checks if object meets identification criteria
+         * @param object $object
+         * @return boolean
+         */
         function applies($object) {
             $objectClass = get_class($object);
             

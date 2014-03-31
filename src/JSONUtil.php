@@ -25,7 +25,7 @@ namespace qtil {
             $out = json_decode($input, $assoc, $depth, $options);
 
             $error = json_last_error();
-            if(empty($error)) {
+            if(empty($error) || $error == JSON_ERROR_NONE) {
                 return $out;
             }
 

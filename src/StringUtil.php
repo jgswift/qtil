@@ -1,6 +1,22 @@
 <?php
 namespace qtil {
     class StringUtil {
+        
+        /**
+         * Checks if string is encoded with JSON data
+         * @param string $string
+         * @return boolean
+         */
+        public static function isJSON($string) {
+            try {
+                JSONUtil::decode($string);
+            } catch(Exception $e) {
+                return false;
+            }
+            
+            return true;
+        }
+        
         /**
          * Checks if string ends with certain string
          * @param string $string

@@ -40,6 +40,10 @@ namespace qtil {
             return (substr($string, 0, $length) === $char);
         }
         
+        public static function flipDS($string) {
+            return str_replace('\\',DIRECTORY_SEPARATOR, $string);
+        }
+        
         /**
          * Converts string using : and ; delimeters to array
          * @param string $string

@@ -28,9 +28,7 @@ namespace qtil\Tests {
             
             $select = $query->getLink('Select')[0];
             
-            $isSelect = $select instanceof Mock\QueryChain\Select;
-            
-            $this->assertEquals(true,$isSelect);
+            $this->assertInstanceOf('qtil\Tests\Mock\QueryChain\Select',$select);
         }
         
         /**
@@ -40,6 +38,17 @@ namespace qtil\Tests {
             $query = new Mock\QueryChain(true);
             
             $query->Select()->Statement();
+        }
+        
+        function testMultipleNamespaceDefinitions() {
+            $query = new Mock\QueryChain(true);
+            $query->registerNamespace('qtil\Tests\Mock\ExtendedQueryChain');
+            
+            $query->Select()->From()->Join();
+            
+            $count = count($query->getLinks());
+            
+            $this->assertEquals(3,$count);
         }
     }
 }

@@ -20,16 +20,17 @@ namespace qtil\Chain {
          * @param object $object
          * @param string $name
          * @return string
-         */
+         */        
         public static function getQualifiedName($object,$name) {
-            $chainNamespace = self::getChainNamespace($object);
-            if(!empty($chainNamespace)) {
-                $qualifiedName = $chainNamespace.'\\'.$name;
-            } else {
-                $qualifiedName = get_class($object).'\\'.$name;
-            }
+            $chainNamespaces = self::getNamespaces($object);
             
-            return $qualifiedName;
+            foreach($chainNamespaces as $chainNamespace) {
+                $qualifiedName = $chainNamespace.'\\'.$name;
+                
+                if(class_exists($qualifiedName)) {
+                    return $qualifiedName;
+                }
+            }
         }
         
         /**
@@ -38,7 +39,7 @@ namespace qtil\Chain {
          * @return string
          */
         public static function getLinkProperty($object) {
-            $uid = self::identify($object);
+            $uid = spl_object_hash($object);
             
             if(!array_key_exists($uid, self::$linkProperty)) {
                 self::$linkProperty[$uid] = 'links';
@@ -57,7 +58,7 @@ namespace qtil\Chain {
          * @return type
          */
         public static function setLinkProperty($object,$property) {
-            $uid = self::identify($object);
+            $uid = spl_object_hash($object);
             
             self::$linkProperty[$uid] = $property;
             
@@ -69,13 +70,14 @@ namespace qtil\Chain {
          * @param object $object
          * @return string
          */
-        public static function getChainNamespace($object) {
-            $uid = self::identify($object);
+        public static function getNamespaces($object) {
+            
+            $uid = spl_object_hash($object);
             
             if(!array_key_exists($uid, self::$chainNamespace)) {
-                self::$chainNamespace[$uid] = get_class($object);
+                self::$chainNamespace[$uid] = array_merge([get_class($object)],class_parents($object));
             }
-            
+
             return self::$chainNamespace[$uid];
         }
         
@@ -85,12 +87,34 @@ namespace qtil\Chain {
          * @param string $namespace
          * @return string
          */
-        public static function setChainNamespace($object,$namespace) {
-            $uid = self::identify($object);
+        public static function addNamespace($object,$namespace) {
+            $uid = spl_object_hash($object);
             
-            self::$chainNamespace[$uid] = $namespace;
+            if(!array_key_exists($uid, self::$chainNamespace)) {
+                self::$chainNamespace[$uid] = array_merge([get_class($object)],class_parents($object));
+            }
+            
+            if(!in_array($namespace, self::$chainNamespace[$uid])) {
+                self::$chainNamespace[$uid][] = $namespace;
+            }
             
             return $namespace;
+        }
+        
+        /**
+         * Removes namespace from registry
+         * @param object $object
+         * @param string $namespace
+         */
+        public static function removeNamespace($object,$namespace) {
+            $uid = spl_object_hash($object);
+            
+            if(array_key_exists($uid, self::$chainNamespace)) {
+                $key = array_search($namespace,self::$chainNamespace[$uid]);
+                if($key) {
+                    unset(self::$chainNamespace[$uid][$key]);
+                }
+            }
         }
     }
 }

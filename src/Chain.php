@@ -11,6 +11,10 @@ namespace qtil {
          */
         protected function link($name, array $arguments) {
             $qualifiedName = Chain\Registry::getQualifiedName($this,$name);
+            
+            if(empty($qualifiedName)) {
+                throw new \BadMethodCallException(get_class($this).'->'.$name);
+            }
 
             $link = self::build($qualifiedName,$arguments);
 
@@ -29,7 +33,7 @@ namespace qtil {
          * @param string $name
          * @return boolean
          */
-        function hasLink($name) {
+        public function hasLink($name) {
             $qualifiedName = Chain\Registry::getQualifiedName($this,$name);
             
             $linkProperty = Chain\Registry::getLinkProperty($this);
@@ -50,7 +54,7 @@ namespace qtil {
          * @param type $names
          * @return type
          */
-        function getLink($names) {
+        public function getLink($names) {
             if(!ArrayUtil::isIterable($names)) {
                 $names = [$names];
             }
@@ -70,12 +74,28 @@ namespace qtil {
 
             return $returnLinks;
         }
+        
+        /**
+         * Helper method to add registry namespace definition
+         * @param string $namespace
+         */
+        public function registerNamespace($namespace) {
+            Chain\Registry::addNamespace($this, $namespace);
+        }
+        
+        /**
+         * Helper method to remove registry namespace definition
+         * @param string $namespace
+         */
+        public function unregisterNamespace($namespace) {
+            Chain\Registry::removeNamespace($this, $namespace);
+        }
 
         /**
          * Retrieves all links in chain
          * @return array
          */
-        function getLinks() {
+        public function getLinks() {
             $linkProperty = Chain\Registry::getLinkProperty($this);
             return $this->{$linkProperty};
         }
@@ -86,7 +106,7 @@ namespace qtil {
          * @param array $arguments
          * @return ArrayObject
          */
-        function __call($name, array $arguments) {
+        public function __call($name, array $arguments) {
             $this->link($name, $arguments);
 
             return $this;

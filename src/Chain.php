@@ -9,7 +9,7 @@ namespace qtil {
          * @param array $arguments
          * @return mixed
          */
-        protected function link($name, array $arguments) {
+        public function link($name, array $arguments) {
             $qualifiedName = Chain\Registry::getQualifiedName($this,$name);
             
             if(empty($qualifiedName)) {

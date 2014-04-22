@@ -17,7 +17,7 @@ namespace qtil\Chain {
         
         /**
          * Retrieves full class path from chain link name
-         * @param object $object
+         * @param mixed $object
          * @param string $name
          * @return string
          */        
@@ -35,7 +35,7 @@ namespace qtil\Chain {
         
         /**
          * Retrieves property where links are locally stores on chain object
-         * @param object $object
+         * @param mixed $object
          * @return string
          */
         public static function getLinkProperty($object) {
@@ -53,7 +53,7 @@ namespace qtil\Chain {
         
         /**
          * Registers link property where chain object locally stores links
-         * @param object $object
+         * @param mixed $object
          * @param string $property
          * @return type
          */
@@ -67,8 +67,8 @@ namespace qtil\Chain {
         
         /**
          * Retrieves namespace where link classes exist
-         * @param object $object
-         * @return string
+         * @param mixed $object
+         * @return array
          */
         public static function getNamespaces($object) {
             
@@ -83,7 +83,7 @@ namespace qtil\Chain {
         
         /**
          * Registers namespace where link classes exist
-         * @param object $object
+         * @param mixed $object
          * @param string $namespace
          * @return string
          */
@@ -103,7 +103,7 @@ namespace qtil\Chain {
         
         /**
          * Removes namespace from registry
-         * @param object $object
+         * @param mixed $object
          * @param string $namespace
          */
         public static function removeNamespace($object,$namespace) {

@@ -7,7 +7,7 @@ namespace qtil\Identifier {
     class MethodScheme extends Scheme {
         /**
          * Checks if object meets identification criteria
-         * @param object $object
+         * @param mixed $object
          * @return boolean
          */
         function applies($object) {
@@ -19,7 +19,7 @@ namespace qtil\Identifier {
         
         /**
          * Identification by method
-         * @param object $object
+         * @param mixed $object
          * @return string
          * @throws \qtil\Exception
          */

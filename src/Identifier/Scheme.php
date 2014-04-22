@@ -29,14 +29,14 @@ namespace qtil\Identifier {
         
         /**
          * Checks if object meets identification criteria
-         * @param object $object
+         * @param mixed $object
          * @return boolean
          */
         abstract function applies($object);
         
         /**
          * Default method for identity retrieval
-         * @param object $object
+         * @param mixed $object
          * @return string
          */
         function getIdentity($object) {

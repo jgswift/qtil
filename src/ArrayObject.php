@@ -1,6 +1,11 @@
 <?php
 namespace qtil {
     trait ArrayObject {
+        /*
+         * @method void offsetSet($name,$value)
+         * @method void offsetUnset($name)
+         * @method boolean offsetExists($name)
+         */
         /**
          * Compares arrays
          * @param mixed $collection
@@ -53,11 +58,12 @@ namespace qtil {
         public function insert($key = null, $value = null) {
             if(is_null($value)) {
                 $value = $key;
-                $key = $this->count();
+                
+                $key = count($this);
             }
 
             if(is_null($key)) {
-                $key = $this->count();
+                $key = count($this);
             }
             
             $this->offsetSet($key, $value);

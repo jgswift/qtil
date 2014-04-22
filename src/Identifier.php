@@ -71,9 +71,9 @@ namespace qtil {
             }
             
             if(is_null($id)) {
-                if($object instanceof qtil\Interfaces\ID) {
+                if($object instanceof \qtil\Interfaces\ID) {
                     $id = $object->id();
-                } elseif($object instanceof qtil\Interfaces\UID) {
+                } elseif($object instanceof \qtil\Interfaces\UID) {
                     $id = $object->uid();
                 } else {
                     $id = self::createUniqueIdentifier($object);

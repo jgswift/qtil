@@ -3,6 +3,7 @@ qtil
 PHP 5.5+ utility library
 
 [![Build Status](https://travis-ci.org/jgswift/qtil.png?branch=master)](https://travis-ci.org/jgswift/qtil)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jgswift/qtil/badges/quality-score.png?s=4a9c26bbc7792d7d3e1fec6ad4deee79c836e620)](https://scrutinizer-ci.com/g/jgswift/qtil/)
 
 ## Installation
 

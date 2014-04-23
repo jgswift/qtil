@@ -12,7 +12,7 @@ namespace qtil\Proxy {
         
         /**
          * Retrieves registered subject for proxy object
-         * @param object $object
+         * @param mixed $object
          * @return mixed
          */
         public static function getSubject($object) {
@@ -25,8 +25,8 @@ namespace qtil\Proxy {
         
         /**
          * Registers subject for proxy object
-         * @param object $object
-         * @param object $subject
+         * @param mixed $object
+         * @param mixed $subject
          */
         public static function setSubject($object,$subject) {
             $uid = self::identify($object);

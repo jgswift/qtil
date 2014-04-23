@@ -33,7 +33,7 @@ namespace qtil\Iterator {
         
         /**
          * set aggregator for object
-         * @param object $object
+         * @param mixed $object
          * @param \Iterator $iterator
          */
         public static function setIteratorAggregate($object,\Iterator $iterator) {

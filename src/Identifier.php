@@ -56,7 +56,7 @@ namespace qtil {
         
         /**
          * Performs object identification
-         * @param object $object
+         * @param mixed $object
          * @return string
          */
         static function identify($object) {
@@ -85,7 +85,7 @@ namespace qtil {
         
         /**
          * helper method to ensure object uniqueness
-         * @param object $object
+         * @param mixed $object
          * @return string
          */
         private static function createUniqueIdentifier($object) {

@@ -18,7 +18,7 @@ namespace qtil {
         public function slice($start, $amount = null, $preserve_keys = false) {
             $array = $this->toArray();
             
-            return new self(array_slice($array,$start,$amount,$preserve_keys));
+            return new Collection(array_slice($array,$start,$amount,$preserve_keys));
         }
         
         /**
@@ -31,7 +31,7 @@ namespace qtil {
         public function splice($start, $amount = null, $replacement = []) {
             $array = $this->toArray();
             
-            return new self(array_splice($array,$start,$amount,$replacement));
+            $this->fromArray(array_splice($array,$start,$amount,$replacement));
         }
         
         /**

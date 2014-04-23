@@ -11,7 +11,7 @@ namespace qtil\Access {
         
         /**
          * Registers access property for object
-         * @param object $object
+         * @param mixed $object
          * @param string $propertyName
          */
         public static function setAccessProperty($object,$propertyName) {
@@ -24,7 +24,7 @@ namespace qtil\Access {
         /**
          * Retrieves access property for object
          * defaults to "data"
-         * @param object $object
+         * @param mixed $object
          * @return string
          */
         public static function getAccessProperty($object) {

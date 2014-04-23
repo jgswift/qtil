@@ -12,7 +12,7 @@ namespace qtil {
 
         /**
          * sets object to pipe all magic 
-         * @param object $subject
+         * @param mixed $subject
          * @return object
          */
         function setSubject($subject) {

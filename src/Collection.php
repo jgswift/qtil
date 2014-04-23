@@ -1,12 +1,12 @@
 <?php
 namespace qtil {
-    class Collection implements \ArrayAccess,\Countable,\IteratorAggregate {
-        use ArrayAccess,ArrayObject,Countable,IteratorAggregate;
+    class Collection implements Interfaces\Collection {
+        use ArrayAccess,Traversable,Countable,IteratorAggregate;
         
-        function __construct(array $data = []) {
-            $property = Access\Registry::getAccessProperty($this);
-            
-            $this->{$property} = $data;
+        function __construct() {
+            if(func_num_args()) {
+                call_user_func_array([$this,'from'],  func_get_args());
+            }
         }
     }
 }

@@ -104,7 +104,7 @@ namespace qtil {
          * Call magic for chain link creation
          * @param string $name
          * @param array $arguments
-         * @return ArrayObject
+         * @return self
          */
         public function __call($name, array $arguments) {
             $this->link($name, $arguments);

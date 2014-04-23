@@ -9,6 +9,18 @@ namespace qtil {
          */
         
         /**
+         * Applies function to every value of array
+         * @param callable $callable
+         */
+        function apply(callable $callable) {
+            $array = $this->toArray();
+            
+            array_walk($array,$callable);
+            
+            $this->fromArray($array);
+        }
+        
+        /**
          * Extract a slice of the array
          * @param integer $start
          * @param integer $amount

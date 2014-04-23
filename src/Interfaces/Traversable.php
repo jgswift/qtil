@@ -107,5 +107,11 @@ namespace qtil\Interfaces {
          * Remove a portion of the array and replace it with something else
          */
         public function splice($start, $amount = null, $replacement = []);
+        
+        /**
+         * Applies function to every value of array
+         * @param callable $callable
+         */
+        function apply(callable $callable);
     }
 }

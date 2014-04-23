@@ -249,12 +249,7 @@ namespace qtil {
                 if(is_array($args[0])) {
                     return $this->fromArray($args[0]);
                 } elseif($args[0] instanceof \Iterator) {
-                    $data = [];
-                    foreach($args[0] as $k=>$v) {
-                        $data[$k] = $v;
-                    }
-                    
-                    $this->fromArray($data);
+                    $this->fromArray(iterator_to_array($args[0]));
                 } elseif($args[0] instanceof Interfaces\Traversable) {
                     $this->fromArray($args[0]->toArray());
                 }

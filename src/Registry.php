@@ -13,8 +13,10 @@ namespace qtil {
          * @return string
          */
         protected static function identify($object) {
-            if(($uid = array_search($object,self::$uids))) {
-                return $uid;
+            foreach(self::$uids as $uid => $e) {
+                if($e === $object) {
+                    return $uid;
+                }
             }
 
             $uid = Identifier::identify($object);

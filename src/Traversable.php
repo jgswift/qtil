@@ -247,15 +247,16 @@ namespace qtil {
             $args = func_get_args();
             if($numArgs === 1) {
                 if(is_array($args[0])) {
-                    return $this->fromArray($args[0]);
+                    $this->fromArray($args[0]);
                 } elseif($args[0] instanceof \Iterator) {
                     $this->fromArray(iterator_to_array($args[0]));
                 } elseif($args[0] instanceof Interfaces\Traversable) {
                     $this->fromArray($args[0]->toArray());
                 }
-            } 
+            } else {
+                $this->fromArray($args);
+            }
             
-            $this->fromArray($args);
             return $this;
         }
     }

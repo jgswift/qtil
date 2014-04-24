@@ -255,7 +255,8 @@ namespace qtil {
                 }
             } 
             
-            return $this->fromArray($args);
+            $this->fromArray($args);
+            return $this;
         }
     }
 }

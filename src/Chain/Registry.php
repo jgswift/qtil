@@ -25,10 +25,15 @@ namespace qtil\Chain {
             $chainNamespaces = self::getNamespaces($object);
             
             foreach($chainNamespaces as $chainNamespace) {
-                $qualifiedName = $chainNamespace.'\\'.$name;
+                $qualifiedNames = [];
                 
-                if(class_exists($qualifiedName)) {
-                    return $qualifiedName;
+                $qualifiedNames[] = $chainNamespace.'\\'.$name;
+                $qualifiedNames[] = $chainNamespace.'\\'.ucfirst($name);
+                
+                foreach($qualifiedNames as $qname) {
+                    if(class_exists($qname)) {
+                        return $qname;
+                    }
                 }
             }
         }

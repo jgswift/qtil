@@ -12,7 +12,9 @@ namespace qtil {
             }
 
             foreach($array as $v) {
-                if (self::isIterable($v)) return true;
+                if (self::isIterable($v)) {
+                    return true;
+                }
             }
             return false;
         }

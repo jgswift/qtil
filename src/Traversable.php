@@ -240,6 +240,7 @@ namespace qtil {
         
         /**
          * Variadic helper function to populate object
+         * @param mixed $param,...
          * @return array
          */
         public function from() {

@@ -28,7 +28,7 @@ namespace qtil\Reflector {
          * Creates \ReflectionClass from provided className
          * Returns null if class does not exist
          * @param string $class
-         * @return mixed
+         * @return \ReflectionClass|null
          */
         private static function createReflector($class,$autoload=true) {
             if(class_exists($class,$autoload)) {

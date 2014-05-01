@@ -12,7 +12,7 @@ namespace qtil\Proxy {
         
         /**
          * Retrieves registered subject for proxy object
-         * @param mixed $object
+         * @param  $object
          * @return mixed
          */
         public static function getSubject($object) {

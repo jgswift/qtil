@@ -25,7 +25,7 @@ namespace qtil {
          * @param integer $start
          * @param integer $amount
          * @param boolean $preserve_keys
-         * @return self
+         * @return Collection
          */
         public function slice($start, $amount = null, $preserve_keys = false) {
             $array = $this->toArray();
@@ -241,7 +241,7 @@ namespace qtil {
         /**
          * Variadic helper function to populate object
          * @param mixed $param,...
-         * @return array
+         * @return Traversable
          */
         public function from() {
             $numArgs = func_num_args();

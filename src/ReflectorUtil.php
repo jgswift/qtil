@@ -20,7 +20,7 @@ namespace qtil {
         /**
          * Retrieves class name without namespace
          * @param mixed $class
-         * @return boolean
+         * @return false|string
          */
         public static function getClassName($class) {
             if (!is_object($class) && !is_string($class)) {

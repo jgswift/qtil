@@ -12,7 +12,7 @@ namespace qtil\Iterator {
         /**
          * Retrieve aggregator for object
          * @param mixed $object
-         * @return \IteratorAggregate
+         * @return \Iterator
          */
         public static function getIteratorAggregate($object) {
             $uid = self::identify($object);

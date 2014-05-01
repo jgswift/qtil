@@ -11,7 +11,7 @@ namespace qtil\Iterator {
         
         /**
          * Retrieve iterator position
-         * @param mixed $iterator
+         * @param \Iterator $iterator
          * @return integer
          */
         public static function getIteratorPosition(\Iterator $iterator) {
@@ -26,7 +26,7 @@ namespace qtil\Iterator {
         
         /**
          * Sets position of iterator
-         * @param mixed $iterator
+         * @param \Iterator $iterator
          * @param integer $position
          */
         public static function setIteratorPosition(\Iterator $iterator,$position) {

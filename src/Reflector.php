@@ -2,7 +2,7 @@
 namespace qtil {
     trait Reflector {
         /**
-         * @param string [ $className ]
+         * @param string $className
          * @return \ReflectionClass
          */
         static function reflect($class = null) {

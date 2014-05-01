@@ -60,7 +60,7 @@ namespace qtil\Chain {
          * Registers link property where chain object locally stores links
          * @param mixed $object
          * @param string $property
-         * @return type
+         * @return string
          */
         public static function setLinkProperty($object,$property) {
             $uid = spl_object_hash($object);
@@ -88,7 +88,7 @@ namespace qtil\Chain {
         
         /**
          * Registers namespace where link classes exist
-         * @param mixed $object
+         * @param  $object
          * @param string $namespace
          * @return string
          */
@@ -108,7 +108,7 @@ namespace qtil\Chain {
         
         /**
          * Removes namespace from registry
-         * @param mixed $object
+         * @param  $object
          * @param string $namespace
          */
         public static function removeNamespace($object,$namespace) {

@@ -9,6 +9,8 @@ namespace qtil\Interfaces {
         
         /**
          * Helper method to populate local data
+         * @param mixed $param,...
+         * @return Traversable
          */
         public function from();
         
@@ -26,6 +28,7 @@ namespace qtil\Interfaces {
         /**
          * Populates from collection data
          * @param Collection $collection
+         * @return Traversable
          */
         public function fromCollection(Collection $collection);
         
@@ -100,17 +103,22 @@ namespace qtil\Interfaces {
         
         /**
          * Extract a slice of the array
+         * @param integer $amount
+         * @return Collection
          */
         public function slice($start, $amount = null, $preserve_keys = false);
         
         /**
          * Remove a portion of the array and replace it with something else
+         * @param integer $amount
+         * @return Traversable|null
          */
         public function splice($start, $amount = null, $replacement = []);
         
         /**
          * Applies function to every value of array
          * @param callable $callable
+         * @return void
          */
         function apply(callable $callable);
     }

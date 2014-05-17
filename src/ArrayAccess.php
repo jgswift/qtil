@@ -20,7 +20,7 @@ namespace qtil {
          * @param mixed $offset
          * @return mixed
          */
-        function offsetGet($offset) {
+        function &offsetGet($offset) {
             $property = Access\Registry::getAccessProperty($this);
             if(!isset($this->{$property})) {
                 $this->{$property} = [];
@@ -42,6 +42,16 @@ namespace qtil {
             $property = Access\Registry::getAccessProperty($this);
             if(!isset($this->{$property})) {
                 $this->{$property} = [];
+            }
+            
+            if (is_null($offset)) {
+                $offset = 0;
+                if (!empty($this->{$property})) {
+                    $keys = \preg_grep( '#^(0|([1-9][0-9]*))$#', \array_keys($this->{$property}));
+                    if (!empty($keys)) {
+                        $offset = \max($keys) + 1;
+                    }
+                }
             }
 
             $this->{$property}[$offset] = $value;

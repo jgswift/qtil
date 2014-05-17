@@ -188,5 +188,48 @@ namespace qtil\Tests {
             
             $this->assertEquals(1,$count);
         }
+        
+        function testArrayIndirectModification() {
+            $fooArray = new Mock\FooArrayAccess([
+                'foo' => [
+                    'hello',
+                    'world',
+                    'baz'
+                ]
+            ]);
+            
+            foreach($fooArray as $k=>$arr) {
+                foreach($arr as $sk => $sv) {
+                    $fooArray[$k][$sk] = 'bar';
+                }
+            }
+            
+            $this->assertEquals(3,count($fooArray[$k]));
+            
+            $fooArray['foo'][] = 'bob';
+            $fooArray['foo'][] = 'sam';
+            
+            $this->assertEquals(5,count($fooArray[$k]));
+        }
+        
+        function testArrayBracketOperator() {
+            $fooArray = new Mock\FooArrayAccess([
+                'bob',
+                'sam',
+                'jim'
+            ]);
+            
+            $fooArray[] = 'jon';
+            
+            $this->assertEquals(4,count($fooArray));
+            
+            $fooArray = new Mock\FooArrayAccess();
+            
+            $fooArray[] = 'bob';
+            
+            $this->assertEquals(1,count($fooArray));
+            
+            $this->assertEquals(0,array_keys($fooArray->toArray())[0]);
+        }
     }
 }

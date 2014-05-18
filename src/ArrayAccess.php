@@ -30,7 +30,8 @@ namespace qtil {
                 return $this->{$property}[$offset];
             }
 
-            return null;
+            $none = null;
+            return $none;
         }
 
         /**

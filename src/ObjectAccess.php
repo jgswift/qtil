@@ -20,13 +20,14 @@ namespace qtil {
          * @param mixed $offset
          * @return mixed
          */
-        public function __get($offset) {
+        public function &__get($offset) {
             if($this->__isset($offset)) {
                 $property = Access\Registry::getAccessProperty($this);
                 return $this->{$property}[$offset];
             }
 
-            return null;
+            $none = null;
+            return $none;
         }
 
         /**

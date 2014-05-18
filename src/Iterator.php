@@ -3,6 +3,7 @@ namespace qtil {
     trait Iterator {
         /**
          * standard iterator rewind method
+         * @ignore
          */
         function rewind() {
             Iterator\Registry::setIteratorPosition($this, 0);
@@ -10,6 +11,7 @@ namespace qtil {
         
         /**
          * standard iterator current method
+         * @ignore
          * @return mixed
          */
         function current() {
@@ -22,6 +24,7 @@ namespace qtil {
         
         /**
          * standard iterator key method
+         * @ignore
          * @return integer
          */
         function key() {
@@ -30,6 +33,7 @@ namespace qtil {
         
         /**
          * standard iterator next method
+         * @ignore
          */
         function next() {
             Iterator\Registry::incrementIteratorPosition($this);
@@ -37,6 +41,7 @@ namespace qtil {
         
         /**
          * standard iterator valid method
+         * @ignore
          * @return boolean
          */
         function valid() {

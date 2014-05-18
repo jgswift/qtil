@@ -1,6 +1,11 @@
 <?php
 namespace qtil {
     trait JSONAccess {
+        /*
+         * @method array toArray()
+         * @method array fromArray(array $array)
+         */
+        
         /**
          * Converts access property data to json string
          * @return string

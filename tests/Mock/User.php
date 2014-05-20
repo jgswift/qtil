@@ -4,6 +4,7 @@ namespace qtil\Tests\Mock {
         use RoleTrait;
         
         public $schemeIdentifiedProperty;
+        private $password;
         
         function getIdentifier() {
             return 1;

@@ -87,5 +87,23 @@ namespace qtil {
 
             return false;
         }
+        
+        /**
+         * Check if property is publicly accessible
+         * @param object|string $class
+         * @param string $property
+         * @return boolean
+         */
+        public static function propertyAccessible($class,$property) {
+            if(\is_object($class)) {
+                $class = get_class($class);
+            }
+            
+            if(!\class_exists($class)) {
+                return false;
+            }
+            
+            return in_array($property,array_keys(get_class_vars($class)));
+        }
     }
 }

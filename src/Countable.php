@@ -8,7 +8,14 @@ namespace qtil {
          */
         public function count() {
             $property = Access\Registry::getAccessProperty($this);
-            return count($this->{$property});
+            if(isset($this->{$property}) && 
+                (   is_array($this->{$property}) ||
+                    $this->{$property} instanceof \Countable)
+                ) {
+                return count($this->{$property});
+               }
+            
+            return 0;
         }
     }
 }

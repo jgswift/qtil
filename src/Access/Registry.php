@@ -18,7 +18,9 @@ namespace qtil\Access {
             $uid = self::identify($object);
             
             self::$accessProperty[$uid] = $propertyName;
-            $object->{$propertyName} = [];
+            if(qtil\ReflectorUtil::propertyAccessible($object, $propertyName)) {
+                $object->{$propertyName} = [];
+            }
         }
 
         /**
@@ -32,7 +34,8 @@ namespace qtil\Access {
             
             if(!array_key_exists($uid, self::$accessProperty)) {
                 self::$accessProperty[$uid] = 'data';
-                if(!isset($object->data)) {
+                if(qtil\ReflectorUtil::propertyAccessible($object, 'data') &&
+                   !isset($object->data)) {
                     $object->data = [];
                 }
             }

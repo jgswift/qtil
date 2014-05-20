@@ -65,10 +65,11 @@ namespace qtil\Tests {
             $collection = new qtil\Collection();
             
             $collection->add('bar');
+            $collection->add('baz');
             
             $count = count($collection);
             
-            $this->assertEquals(1,$count);
+            $this->assertEquals(2,$count);
         }
         
         function testCollectionInsert() {

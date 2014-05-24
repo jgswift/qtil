@@ -12,6 +12,11 @@ namespace qtil {
             }
             
             $property = Access\Registry::getAccessProperty($this);
+            
+            if(!isset($this->{$property})) {
+                $this->{$property} = [];
+            }
+            
             return array_key_exists($offset, $this->{$property});
         }
 

@@ -13,6 +13,16 @@ namespace qtil\Tests {
             $this->assertEquals('baz',$value);
         }
         
+        function testImplicitArrayAccessorMutator() {
+            $foo = new Mock\ImplicitFooCollection();
+            
+            $foo['bar'] = 'baz';
+            
+            $value = $foo['bar'];
+            
+            $this->assertEquals('baz',$value);
+        }
+        
         function testArrayUnset() {
             $foo = new Mock\FooCollection();
             

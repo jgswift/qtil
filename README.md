@@ -14,9 +14,7 @@ php composer.phar require jgswift/qtil:dev-master
 
 ## Usage
 
-Qtil is a collection of traits and general utilities to assist in development and over-all reduce boilerplate.
-
-Note: using the traits provided in this package may impact performance for cpu intensive operations.
+Qtil is a collection of traits and general utilities to assist in development and reduce boilerplate.
 
 The following is an ArrayAccess minimal example
 ```php

@@ -12,11 +12,26 @@ namespace qtil {
             }
 
             foreach($array as $v) {
-                if (self::isIterable($v)) {
+                if (is_array($v)) {
                     return true;
                 }
             }
+                
             return false;
+        }
+        
+        /**
+         * Counts iterable objects as arrays
+         * @param mixed $array
+         */
+        static function isMultiObject($array) {
+            if(!$this->isMultidimensional($array)) {
+                foreach($array as $v) {
+                    if (self::isIterable($v)) {
+                        return true;
+                    }
+                }
+            }
         }
         
         /**

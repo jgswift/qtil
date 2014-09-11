@@ -7,10 +7,23 @@ PHP 5.5+ utility library
 
 ## Installation
 
-Install via [composer](https://getcomposer.org/):
+Install via cli using [composer](https://getcomposer.org/):
 ```sh
-php composer.phar require jgswift/qtil:dev-master
+php composer.phar require jgswift/qtil:0.1.*
 ```
+
+Install via composer.json using [composer](https://getcomposer.org/):
+```json
+{
+    "require": {
+        "jgswift/qtil": "0.1.*"
+    }
+}
+```
+
+## Dependency
+
+* php 5.5+
 
 ## Usage
 

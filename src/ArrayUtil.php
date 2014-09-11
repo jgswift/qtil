@@ -107,14 +107,41 @@ namespace qtil {
             }
 
             if(false !== $key_pos) {
-                $result = \array_slice($array, 0, $key_pos);
-                $result = \array_merge($result, $pairs);
-                $result = \array_merge($result, \array_slice($array, $key_pos));
+                $slice = \array_slice($array, 0, $key_pos);
+                $merge = \array_merge($slice, $pairs);
+                $result = \array_merge($merge, \array_slice($array, $key_pos));
             } else {
                 $result = \array_merge($array, $pairs);
             }
 
             return $result;
+        }
+        
+        /**
+         * Compute whether or not needle array exists in haystack
+         * and return all matching keys
+         * @param array $needle
+         * @param array $haystack
+         * @return array
+         */
+        protected function containsArray(array $needle, array $haystack) {
+            $keys = array_keys($haystack, $needle[0]);
+            $out = [];
+            foreach($keys as $key) {
+                $add = true;
+                $result = [];
+                foreach($needle as $i => $value) {
+                    if(!(isset($haystack[$key + $i]) && $haystack[$key + $i] == $value)) {
+                        $add = false;
+                        break;
+                    }
+                    $result[] = $key + $i;
+                }
+                if($add == true) { 
+                    $out[] = $result;
+                }
+            }
+            return $out;
         }
         
         /**

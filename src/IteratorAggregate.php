@@ -14,7 +14,7 @@ namespace qtil {
          * @param \Iterator $iterator
          */
         public function setIterator(\Iterator $iterator) {
-            Iterator\AggregateRegistry::getIteratorAggregate($this,$iterator);
+            Iterator\AggregateRegistry::setIteratorAggregate($this,$iterator);
         }
     }
 }

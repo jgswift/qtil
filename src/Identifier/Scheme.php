@@ -13,7 +13,7 @@ namespace qtil\Identifier {
         
         /**
          * Callback for delegate identification
-         * @var closure
+         * @var callable
          */
         protected $identifyCallback;
         

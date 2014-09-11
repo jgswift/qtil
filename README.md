@@ -300,7 +300,7 @@ var_dump($result); // true
 ### Chain
 
 The chaining mechanism favors convention over configuration.  
-The chainable methods are populated by all of the classes in a certain namespace.
+Chainable methods are populated by all of the classes in a certain namespace.
 
 The namespace is customizable but defaults to the name of the class.
 

@@ -4,6 +4,16 @@ namespace qtil {
         use Reflector;
 
         /**
+         * Locally scoped alias of build
+         * @param string $className
+         * @param array $arguments
+         * @param boolean $autoload
+         */
+        public function make($className, array $arguments = [], $autoload = true) {
+            return self::build($className,$arguments,$autoload);
+        }
+        
+        /**
          * Instantiates factory object with given arguments
          * @param string $className
          * @param array $arguments
@@ -11,7 +21,7 @@ namespace qtil {
          * @throws \qtil\Exception
          * @throws Exception\
          */
-        static function build($className, array $arguments = [],$autoload=true) {    
+        static function build($className, array $arguments = [], $autoload=true) {    
             if(!is_string($className)) {
                 return;
             }

@@ -4,10 +4,13 @@ PHP 5.5+ utility library
 
 [![Build Status](https://travis-ci.org/jgswift/qtil.png?branch=master)](https://travis-ci.org/jgswift/qtil)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jgswift/qtil/badges/quality-score.png?s=4a9c26bbc7792d7d3e1fec6ad4deee79c836e620)](https://scrutinizer-ci.com/g/jgswift/qtil/)
+[![Latest Stable Version](https://poser.pugx.org/jgswift/qtil/v/stable.svg)](https://packagist.org/packages/jgswift/qtil)
+[![License](https://poser.pugx.org/jgswift/qtil/license.svg)](https://packagist.org/packages/jgswift/qtil)
+[![Coverage Status](https://coveralls.io/repos/jgswift/qtil/badge.png?branch=master)](https://coveralls.io/r/jgswift/qtil?branch=master)
 
 ## Description 
 
-Qtil is a collection of traits and general utilities to assist in development and reduce boilerplate.
+This package contains a variety of utilities to assist in development and reduce boilerplate.
 
 ## Installation
 
@@ -246,7 +249,9 @@ var_dump(get_class($user)); // 'User'
 
 ### Proxy
 
-Mediates a single objects' local scope through magic methods, namely __get, __set, __unset, __isset, and __call
+A simple magic mediator.
+
+Mediates an object instance through locally-scoped magic methods, namely __get, __set, __unset, __isset, and __call
 
 ```php
 class MyUserProxy {
@@ -292,23 +297,28 @@ class MyBinarySwitch {
 
 $switch = new MyBinarySwitch();
 
-$result = $switch(false);
+$result = $switch(false);   // starts off
 
-var_dump($result); // true
+var_dump($result);          // ends on
+
+$result = $switch(true);    // starts on
+
+var_dump($result);          // ends off
 ```
 
-### Chain
+### Method Chaining
 
-The chaining mechanism favors convention over configuration.  
-Chainable methods are populated by all of the classes in a certain namespace.
-
-The namespace is customizable but defaults to the name of the class.
+The chaining mechanism outlined below favors convention over configuration.
+Chainable methods are populated by all of the classes that are direct children of one or more namespaces.
+The namespaces are customizable but the default is a single namespace that matches the class signature of the chained class
 
 ```php
 class Query {
     use qtil\Chain;
 }
 
+// a namespace with the same signature as the class must be created
+// or alternatively the namespaces may be configured manually
 namespace Query {
     class Select {
         function __construct() {
@@ -323,12 +333,31 @@ namespace Query {
     }
 }
 
+namespace OtherQueryTypes {
+    class Within {
+        function __construct() {
+            /* Specify constraints */
+        }
+    }
+}
+
+// create a query from above chain classes
 $query = new Query;
 
 $query->select()->from();
 
 var_dump(count($query->getLinks())); // 2
 
+// add a second namespace in local scope to the query classes
+// this namespace extension will only apply for this query instance
+$query->addNamespace("OtherQueryTypes");
+
+$query->within();
+
+var_dump(count($query->getLinks())); // 3
+
+// add a second namespace class-wide so all instantiated instances may use it for the same effect
+qtil\Chain\Registry::addNamespace('Query','OtherQueryTypes');
 ```
 
 Note: any traits that use magic methods such as __get, __set, etc. are not compatible with eachother unless you provide a custom implementation to manually route duplicate methods.  See the [php traits documentation](http://us2.php.net/traits), specifically the insteadof operator.

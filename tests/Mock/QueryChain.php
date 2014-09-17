@@ -3,10 +3,14 @@ namespace qtil\Tests\Mock {
     use qtil;
     
     class QueryChain {
-        use qtil\Chain;
+        use qtil\Chain, qtil\ArrayAccess;
         
-        function __construct($arg2,$arg1=null) {
-            
+        public $arg2;
+        public $arg1;
+        
+        function __construct($arg1=null,array $arg2=[]) {
+            $this->arg1 = $arg1;
+            $this->arg2 = $arg2;
         }
     }
 }

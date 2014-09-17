@@ -11,6 +11,13 @@ namespace qtil\Tests {
             $this->assertEquals(2,$count);
         }
         
+        function testLinkCheck() {
+            $query = new Mock\QueryChain(true);
+            
+            $this->assertTrue($query->canLink('Select'));
+            $this->assertFalse($query->canLink('Order'));
+        }
+        
         function testLinkExist() {
             $query = new Mock\QueryChain(true);
             

@@ -16,7 +16,7 @@ namespace qtil {
                 throw new \BadMethodCallException(get_class($this).'->'.$name);
             }
 
-            $link = self::build($qualifiedName,$arguments);
+            $link = $this->make($qualifiedName,$arguments);
 
             if(isset($link)) {
                 $linkProperty = Chain\Registry::getLinkProperty($this);
@@ -26,6 +26,21 @@ namespace qtil {
             } else {
                 return null;
             }
+        }
+        
+        /**
+         * Check if chain link is possible given name
+         * @param string $name
+         * @return boolean
+         */
+        public function canLink($name) {
+            $qualifiedName = Chain\Registry::getQualifiedName($this,$name);
+            
+            if(class_exists($qualifiedName)) {
+                return true;
+            }
+            
+            return false;
         }
 
         /**

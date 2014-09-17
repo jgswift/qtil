@@ -86,8 +86,8 @@ namespace qtil {
 
         /**
          * Searches array of strings for needles
-         * @param array $haystack
-         * @param array $needles
+         * @param string $haystack
+         * @param string $needles
          * @param int $offset
          * @return array
          */
@@ -137,8 +137,32 @@ namespace qtil {
         * Check if a string is serialized
         * @param string $string
         */
-        function isSerial($string) {
+        public static function isSerial($string) {
             return (unserialize($string) !== false);
+        }
+        
+        /**
+         * Transforms the number with an ordinal suffix
+         * @param int $number
+         * @return string
+         */
+        public static function ordinal($number) {
+            $ends = array('th','st','nd','rd','th','th','th','th','th','th');
+            if (($number % 100) >= 11 && ($number % 100) <= 13) {
+               return $number. 'th';
+            }
+            
+            return $number. $ends[$number % 10];
+        }
+        
+        /**
+         * Transforms the number with prepended zeroes
+         * @param integer $number
+         * @param integer $amount
+         * @return string
+         */
+        public static function padZero($number,$amount) {
+            return str_repeat('0',$amount).$number;
         }
     }
 }

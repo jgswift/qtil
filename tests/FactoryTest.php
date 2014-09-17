@@ -4,7 +4,7 @@ namespace qtil\Tests {
         function testObjectCreate() {
             $factory = new Mock\FooFactory;
             
-            $queryChain = $factory->build('qtil\Tests\Mock\QueryChain',[true]);
+            $queryChain = $factory->make('qtil\Tests\Mock\QueryChain',[true]);
             
             $isQueryChain = $queryChain instanceof Mock\QueryChain;
             
@@ -14,13 +14,20 @@ namespace qtil\Tests {
         function testAutoloadException() {
             $factory = new Mock\FooFactory;
             
-            $queryChain = $factory->build('NonExistantClass');
+            $null = $factory->make('NonExistantClass');
+            
+            $this->assertNull($null);
         }
         
         function testObjectConstructorArgumentMismatchException() {
             $factory = new Mock\FooFactory;
             
-            $queryChain = $factory->build('QueryChain',[true,false,true]);
+            $queryChain = $factory->make('qtil\Tests\Mock\QueryChain',[true,[]]);
+            
+            $this->assertInstanceOf('qtil\Tests\Mock\QueryChain', $queryChain);
+            
+            $this->assertTrue($queryChain->arg1);
+            $this->assertTrue(is_array($queryChain->arg2));
         }
     }
 }

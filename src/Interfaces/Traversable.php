@@ -1,5 +1,8 @@
 <?php
 namespace qtil\Interfaces {
+    /**
+     * @codeCoverageIgnore
+     */
     interface Traversable {
         /**
          * Retrieves array form of object

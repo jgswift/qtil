@@ -9,6 +9,8 @@ namespace qtil\Iterator {
          */
         private static $iteratorAggregates = [];
         
+        private static $generatorAggregates = [];
+        
         /**
          * Retrieve aggregator for object
          * @param mixed $object
@@ -40,6 +42,32 @@ namespace qtil\Iterator {
             $uid = self::identify($object);
             
             self::$iteratorAggregates[$uid] = $iterator;
+        }
+        
+        public static function getGenerator($object) {
+            $uid = self::identify($object);
+            
+            if(array_key_exists($uid,self::$generatorAggregates)) {
+                $generator = self::$generatorAggregates[$uid];
+            } else {
+                $generator = self::getDefaultGenerator();
+            }
+            
+            return $generator($object);
+        }
+        
+        public static function setGenerator($object, callable $generator) {
+            $uid = self::identify($object);
+            
+            self::$generatorAggregates[$uid] = $generator;
+        }
+        
+        protected static function getDefaultGenerator() {
+            return function() {
+                foreach($this as $item) {
+                    yield $item;
+                }
+            };
         }
     }
 }

@@ -241,5 +241,28 @@ namespace qtil\Tests {
             
             $this->assertEquals(0,array_keys($fooArray->toArray())[0]);
         }
+        
+        function testCollectionGenerator() {
+            $fooArray = new Mock\FooCollection([
+                'bob',
+                'sam',
+                'jim'
+            ]);
+            
+            $fooArray->setGenerator(function($items) {
+                foreach($items as $v) {
+                    yield $v;
+                }
+            });
+            
+            $gen = $fooArray->getGenerator();
+            
+            $matches = ['bob','sam','jim'];
+            foreach($gen as $item) {
+                $match = array_shift($matches);
+                
+                $this->assertEquals($match,$item);
+            }
+        }
     }
 }

@@ -1,5 +1,8 @@
 <?php
 namespace qtil\Interfaces {
+    /**
+     * @codeCoverageIgnore
+     */
     interface Node {
         /**
          * Retrieves immediate node parent

@@ -1,5 +1,8 @@
 <?php
 namespace qtil\Interfaces {
+    /**
+     * @codeCoverageIgnore
+     */
     interface Comparable {
         /**
          * Method used to compare two objects

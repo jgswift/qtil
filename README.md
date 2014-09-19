@@ -76,7 +76,7 @@ The JSONAccess trait provides integrated JSON serialization and may be applied t
 <?php
 class Foo
 {
-    use qtil\ObjectAccess,qtil\JSONAccess;
+    use qtil\ObjectAccess, qtil\JSONAccess;
 }
 
 $foo = new Foo;
@@ -98,7 +98,7 @@ Normal object serialization is also available using the Serializable interface/t
 <?php
 class Foo implements \Serializable
 {
-    use qtil\ObjectAccess,qtil\Serializable;
+    use qtil\ObjectAccess, qtil\Serializable;
 }
 
 $foo = new Foo;
@@ -137,7 +137,7 @@ foreach($foo as $name => $value) {
 <?php
 class Foo
 {
-    use qtil\ObjectAccess,qtil\IteratorAggregate;
+    use qtil\ObjectAccess, qtil\IteratorAggregate;
 }
 
 $foo = new Foo;
@@ -146,6 +146,62 @@ $foo->baz = 'rus';
 
 foreach($foo as $name => $value) {
     var_dump($name,$value); // returns bar => baz, then baz => rus
+}
+```
+
+#### IteratorAggregate.setIterator
+
+The iterator aggregate trait provides a convenience method to specify the iterator manually
+
+```php
+class Foo
+{
+    use qtil\ObjectAccess, qtil\IteratorAggregate;
+}
+
+class FooIterator implements \Iterator {
+    function current() { /* ... */ }
+    function key() { /* ... */ }
+    function next() { /* ... */ }
+    function rewind() { /* ... */ }
+    function valid() { /* ... */ }
+}
+
+$foo = new Foo;
+$foo->setIterator(new FooIterator);
+
+foreach($foo as $value) {
+    // iterates over foo using fooiterator
+}
+```
+
+### Generator
+
+A generator function may be specified to easily customize the iteration process without
+requiring a custom ```Iterator```.
+
+```php
+class Foo
+{
+    use qtil\ObjectAccess, qtil\Generator;
+}
+
+$foo = new Foo([
+    'bob',
+    'sam',
+    'jim'
+]);
+
+$foo->setGenerator(function($items) {
+    foreach($items as $v) {
+        yield $v;
+    }
+});
+
+$gen = $foo->getGenerator();
+
+foreach($gen as $item) {
+    // 'bob' , 'sam' , 'jim'
 }
 ```
 

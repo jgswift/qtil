@@ -25,7 +25,7 @@ namespace qtil {
          * @param mixed $array
          */
         static function isMultiObject($array) {
-            if(!self::isMultidimensional($array) && self::isIterable($array)) {
+            if(self::isIterable($array)) {
                 foreach($array as $v) {
                     if (self::isIterable($v)) {
                         return true;

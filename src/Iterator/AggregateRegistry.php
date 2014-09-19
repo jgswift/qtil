@@ -63,8 +63,8 @@ namespace qtil\Iterator {
         }
         
         protected static function getDefaultGenerator() {
-            return function() {
-                foreach($this as $item) {
+            return function($items) {
+                foreach($items as $item) {
                     yield $item;
                 }
             };

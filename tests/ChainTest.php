@@ -38,15 +38,6 @@ namespace qtil\Tests {
             $this->assertInstanceOf('qtil\Tests\Mock\QueryChain\Select',$select);
         }
         
-        /**
-         * @expectedException qtil\Exception
-         */
-        function testLinkBuildAbstractException() {
-            $query = new Mock\QueryChain(true);
-            
-            $query->Select()->Statement();
-        }
-        
         function testMultipleNamespaceDefinitions() {
             $query = new Mock\QueryChain(true);
             $query->registerNamespace('qtil\Tests\Mock\ExtendedQueryChain');
@@ -56,6 +47,15 @@ namespace qtil\Tests {
             $count = count($query->getLinks());
             
             $this->assertEquals(3,$count);
+        }
+        
+        /**
+         * @expectedException \qtil\Factory\ClassNotFoundException
+         */
+        function testLinkBuildAbstractException() {
+            $query = new Mock\QueryChain(true);
+            
+            $query->Select()->Statement();
         }
     }
 }

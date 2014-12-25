@@ -61,7 +61,22 @@ namespace qtil\Tests {
             $count = 0;
             
             foreach($fooIterator as $k=>$v) {
+                $this->assertEquals('bar',$v);
                 $count++;
+            }
+            
+            $this->assertEquals(1,$count);
+        }
+        
+        function testIteratorAggregate() {
+            $fooIteratorAggregate = new Mock\FooIteratorAggregate();
+            
+            $count = 0;
+            
+            foreach($fooIteratorAggregate as $k => $v) {
+                $count++;
+                $this->assertEquals('foo',$k);
+                $this->assertEquals('bar',$v);
             }
             
             $this->assertEquals(1,$count);

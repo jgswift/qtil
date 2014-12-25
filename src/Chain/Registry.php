@@ -1,6 +1,7 @@
 <?php
 namespace qtil\Chain {
     use qtil;
+    use qtil\Identifier;
     
     class Registry extends qtil\Registry {
         /**
@@ -21,14 +22,18 @@ namespace qtil\Chain {
          * @param string $name
          * @return string
          */        
-        public static function getQualifiedName($object,$name) {
+        public static function getQualifiedName($object,$name, $suffix=null) {
             $chainNamespaces = self::getNamespaces($object);
             
             foreach($chainNamespaces as $chainNamespace) {
                 $qualifiedNames = [];
                 
-                $qualifiedNames[] = $chainNamespace.'\\'.$name;
-                $qualifiedNames[] = $chainNamespace.'\\'.ucfirst($name);
+                if(is_null($suffix)) {
+                    $suffix = '';
+                }
+                
+                $qualifiedNames[] = $chainNamespace.'\\'.$name.$suffix;
+                $qualifiedNames[] = $chainNamespace.'\\'.ucfirst($name).$suffix;
                 
                 foreach($qualifiedNames as $qname) {
                     if(class_exists($qname)) {
@@ -44,7 +49,7 @@ namespace qtil\Chain {
          * @return string
          */
         public static function getLinkProperty($object) {
-            $uid = spl_object_hash($object);
+            $uid = self::identify($object);
             
             if(!array_key_exists($uid, self::$linkProperty)) {
                 self::$linkProperty[$uid] = 'links';
@@ -63,7 +68,7 @@ namespace qtil\Chain {
          * @return string
          */
         public static function setLinkProperty($object,$property) {
-            $uid = spl_object_hash($object);
+            $uid = self::identify($object);
             
             self::$linkProperty[$uid] = $property;
             
@@ -76,9 +81,7 @@ namespace qtil\Chain {
          * @return array
          */
         public static function getNamespaces($object) {
-            
-            $uid = spl_object_hash($object);
-            
+            $uid = self::identify($object);
             if(!array_key_exists($uid, self::$chainNamespace)) {
                 self::$chainNamespace[$uid] = array_merge([get_class($object)],class_parents($object));
             }
@@ -93,7 +96,7 @@ namespace qtil\Chain {
          * @return string
          */
         public static function addNamespace($object,$namespace) {
-            $uid = spl_object_hash($object);
+            $uid = self::identify($object);
             
             if(!array_key_exists($uid, self::$chainNamespace)) {
                 self::$chainNamespace[$uid] = array_merge([get_class($object)],class_parents($object));
@@ -112,7 +115,7 @@ namespace qtil\Chain {
          * @param string $namespace
          */
         public static function removeNamespace($object,$namespace) {
-            $uid = spl_object_hash($object);
+            $uid = self::identify($object);
             
             if(array_key_exists($uid, self::$chainNamespace)) {
                 $key = array_search($namespace,self::$chainNamespace[$uid]);

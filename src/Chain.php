@@ -2,7 +2,7 @@
 namespace qtil {
     trait Chain {
         use Factory;
-
+        
         /**
          * Creates link object with built-in factory
          * @param string $name
@@ -10,7 +10,11 @@ namespace qtil {
          * @return mixed
          */
         public function link($name, array $arguments) {
-            $qualifiedName = Chain\Registry::getQualifiedName($this,$name);
+            $suffix = defined('static::LINK_SUFFIX')
+                    ? static::LINK_SUFFIX
+                    : '';
+            
+            $qualifiedName = Chain\Registry::getQualifiedName($this,$name,$suffix);
             
             if(empty($qualifiedName)) {
                 throw new \BadMethodCallException(get_class($this).'->'.$name);
@@ -34,7 +38,11 @@ namespace qtil {
          * @return boolean
          */
         public function canLink($name) {
-            $qualifiedName = Chain\Registry::getQualifiedName($this,$name);
+            $suffix = defined('static::LINK_SUFFIX')
+                    ? static::LINK_SUFFIX
+                    : '';
+            
+            $qualifiedName = Chain\Registry::getQualifiedName($this,$name,$suffix);
             
             if(class_exists($qualifiedName)) {
                 return true;
@@ -49,7 +57,11 @@ namespace qtil {
          * @return boolean
          */
         public function hasLink($name) {
-            $qualifiedName = Chain\Registry::getQualifiedName($this,$name);
+            $suffix = defined('static::LINK_SUFFIX')
+                    ? static::LINK_SUFFIX
+                    : '';
+            
+            $qualifiedName = Chain\Registry::getQualifiedName($this,$name,$suffix);
             
             $linkProperty = Chain\Registry::getLinkProperty($this);
             $links = $this->{$linkProperty};
@@ -79,7 +91,11 @@ namespace qtil {
                 
             $returnLinks = [];
             foreach($names as $name) {
-                $qualifiedName = Chain\Registry::getQualifiedName($this,$name);
+                $suffix = defined('static::LINK_SUFFIX')
+                    ? static::LINK_SUFFIX
+                    : '';
+            
+                $qualifiedName = Chain\Registry::getQualifiedName($this,$name,$suffix);
                 foreach($links as $link) {
                     if($link instanceof $qualifiedName) {
                         $returnLinks[] = $link;

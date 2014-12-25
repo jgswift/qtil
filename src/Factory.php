@@ -1,5 +1,7 @@
 <?php
 namespace qtil {
+    use qtil\Factory\ClassNotFoundException;
+    
     trait Factory {
         use Reflector;
 
@@ -26,36 +28,32 @@ namespace qtil {
                 return;
             }
 
-            try {
-                if(class_exists($className,$autoload)) {
-                    if(($class = self::reflect($className)) !== false) {
-                        if($class->isInstantiable() && !$class->isAbstract()) {
-                            $cons = $class->getConstructor();
+            if(class_exists($className,$autoload)) {
+                if(($class = self::reflect($className)) !== false) {
+                    if($class->isInstantiable() && !$class->isAbstract()) {
+                        $cons = $class->getConstructor();
 
-                            if($cons instanceof \ReflectionMethod) {
-                                $params = $cons->getParameters();
+                        if($cons instanceof \ReflectionMethod) {
+                            $params = $cons->getParameters();
 
-                                foreach($params as $param) {
-                                    if(!array_key_exists($param->getPosition(), $arguments)) {
-                                        if($param->isDefaultValueAvailable()) {
-                                            $arguments[$param->getPosition()] = $param->getDefaultValue();
-                                        } elseif($param->allowsNull()) {
-                                            $arguments[$param->getPosition()] = null;
-                                        }
+                            foreach($params as $param) {
+                                if(!array_key_exists($param->getPosition(), $arguments)) {
+                                    if($param->isDefaultValueAvailable()) {
+                                        $arguments[$param->getPosition()] = $param->getDefaultValue();
+                                    } elseif($param->allowsNull()) {
+                                        $arguments[$param->getPosition()] = null;
                                     }
                                 }
                             }
-
-                            $object = $class->newInstanceArgs($arguments);
-
-                            return $object;
-                        } else {
-                            throw new Exception('Cannot instantiate class("'.$className.'")');
                         }
+
+                        $object = $class->newInstanceArgs($arguments);
+
+                        return $object;
+                    } else {
+                        throw new ClassNotFoundException($className);
                     }
                 }
-            } catch(\Exception $e) {
-                throw $e;
             }
         }
     }

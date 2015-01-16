@@ -171,7 +171,6 @@ class FooIterator implements \Iterator {
 }
 
 $foo = new Foo;
-$foo->setIterator(new FooIterator);
 
 foreach($foo as $value) {
     // iterates over foo using fooiterator

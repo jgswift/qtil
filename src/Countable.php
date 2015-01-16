@@ -7,7 +7,7 @@ namespace qtil {
          * @return integer
          */
         public function count() {
-            $property = Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
             if(isset($this->{$property}) && 
                 (   is_array($this->{$property}) ||
                     $this->{$property} instanceof \Countable)

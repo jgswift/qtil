@@ -4,7 +4,5 @@ namespace qtil\Tests\Mock {
     
     class FooCollection extends qtil\Collection {
         use qtil\JSONAccess;
-        
-        public $data = [];
     }
 }

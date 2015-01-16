@@ -15,7 +15,7 @@ namespace qtil {
                 return JSONUtil::encode($this->toArray());
             }
             
-            $property = Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
             if(!isset($this->{$property})) {
                 $this->{$property} = [];
             }
@@ -34,7 +34,7 @@ namespace qtil {
                 return $input;
             }
             
-            $property = Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
             $this->{$property} = (array)JSONUtil::decode($input);
             return $input;
         }

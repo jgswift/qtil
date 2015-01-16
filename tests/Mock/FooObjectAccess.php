@@ -5,6 +5,6 @@ namespace qtil\Tests\Mock {
     class FooObjectAccess implements \Serializable {
         use qtil\ObjectAccess,qtil\Serializable;
         
-        public $data = [];
+        protected $data = [];
     }
 }

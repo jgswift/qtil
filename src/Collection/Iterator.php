@@ -3,10 +3,10 @@ namespace qtil\Collection {
     use qtil;
     
     class Iterator implements \ArrayAccess,\Countable,\Iterator {
-        use qtil\ArrayAccess,qtil\Traversable,qtil\Countable,qtil\Iterator;
+        use qtil\ArrayAccess,qtil\Countable,qtil\Iterator;
         
         function __construct(array $data = []) {
-            $property = qtil\Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
             
             $this->{$property} = $data;
         }

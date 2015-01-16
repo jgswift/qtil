@@ -1,20 +1,38 @@
 <?php
 namespace qtil {
-    trait Generator {       
+    trait Generator {
+        /**
+         * Locally store generator callable
+         * @var callable 
+         */
+        protected $generatorCallable;
+        
         /**
          * Retrieves generator
-         * @return type
+         * @return callable
          */
         public function getGenerator() {
-            return Iterator\AggregateRegistry::getGenerator($this);
+            if(empty($this->generatorCallable)) {
+                $this->generatorCallable = function($v) {
+                    return $v;
+                };
+            }
+            
+            $generator = function() {
+                foreach($this->{static::$DOMAIN_PROPERTY} as $item) {
+                    yield call_user_func_array($this->generatorCallable, [$item]);
+                }
+            };
+            
+            return $generator();
         }
         
         /**
-         * Updates generator with callable that implements "yield"
+         * Updates generator with callable that is wrapped by "yield"
          * @param callable $generator
          */
         public function setGenerator(callable $generator) {
-            Iterator\AggregateRegistry::setGenerator($this, $generator);
+            return $this->generatorCallable = $generator;
         }
     }
 }

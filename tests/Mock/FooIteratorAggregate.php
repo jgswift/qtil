@@ -5,6 +5,6 @@ namespace qtil\Tests\Mock {
     class FooIteratorAggregate implements \IteratorAggregate {
         use qtil\IteratorAggregate;
         
-        public $data = ['foo' => 'bar'];
+        protected $data = ['foo' => 'bar'];
     }
 }

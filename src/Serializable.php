@@ -6,7 +6,11 @@ namespace qtil {
          * @return string
          */
         function serialize() {
-            $property = Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
+            if(!isset($this->{$property})) {
+                $this->{$property} = [];
+            }
+            
             return \serialize($this->{$property});
         }
         
@@ -15,7 +19,7 @@ namespace qtil {
          * @param string $data
          */
         function unserialize($data) {
-            $property = Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
             $this->{$property} = \unserialize($data);
         }
     }

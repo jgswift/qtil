@@ -31,6 +31,7 @@ Install via composer.json using [composer](https://getcomposer.org/):
 ## Dependency
 
 * php 5.5+
+* [jgswift/restructr](http://www.github.com/jgswift/restructr) domain component foundation
 
 ## Usage
 
@@ -119,7 +120,7 @@ Qtil provides standard Iterator and IteratorAggregate implementations through th
 <?php
 class Foo
 {
-    use qtil\ObjectAccess,qtil\Iterator;
+    use qtil\ObjectAccess, qtil\Iterator;
 }
 
 $foo = new Foo;
@@ -149,14 +150,16 @@ foreach($foo as $name => $value) {
 }
 ```
 
-#### IteratorAggregate.setIterator
+#### IteratorAggregate Custom Iterator
 
-The iterator aggregate trait provides a convenience method to specify the iterator manually
+The iterator aggregate trait provides a convenience property to specify the iterator manually.  By default, ArrayIterator is used.
 
 ```php
 class Foo
 {
     use qtil\ObjectAccess, qtil\IteratorAggregate;
+
+    public static $ITERATOR_CLASS = 'FooIterator';
 }
 
 class FooIterator implements \Iterator {
@@ -192,10 +195,8 @@ $foo = new Foo([
     'jim'
 ]);
 
-$foo->setGenerator(function($items) {
-    foreach($items as $v) {
-        yield $v;
-    }
+$foo->setGenerator(function($item) {
+    return $item;
 });
 
 $gen = $foo->getGenerator();

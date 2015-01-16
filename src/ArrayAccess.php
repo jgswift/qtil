@@ -1,6 +1,8 @@
 <?php
 namespace qtil {
     trait ArrayAccess {
+        use ArrayEnumerable;
+        
         /**
          * Checkes if item exists in access property list
          * @param mixed $offset
@@ -11,7 +13,7 @@ namespace qtil {
                 return false;
             }
             
-            $property = Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
             
             if(!isset($this->{$property})) {
                 $this->{$property} = [];
@@ -26,7 +28,7 @@ namespace qtil {
          * @return mixed
          */
         function &offsetGet($offset) {
-            $property = Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
             if(!isset($this->{$property})) {
                 $this->{$property} = [];
             }
@@ -45,7 +47,7 @@ namespace qtil {
          * @param mixed $value
          */
         function offsetSet($offset, $value) {
-            $property = Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
             if(!isset($this->{$property})) {
                 $this->{$property} = [];
             }
@@ -68,7 +70,8 @@ namespace qtil {
          * @param mixed $offset
          */
         function offsetUnset($offset) {
-            $property = Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
+            
             unset($this->{$property}[$offset]);
         }
     }

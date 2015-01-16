@@ -249,20 +249,22 @@ namespace qtil\Tests {
                 'jim'
             ]);
             
-            $fooArray->setGenerator(function($items) {
-                foreach($items as $v) {
-                    yield $v;
-                }
+            $fooArray->setGenerator(function($value) {
+                return $value;
             });
             
             $gen = $fooArray->getGenerator();
             
             $matches = ['bob','sam','jim'];
+            $c = 0;
             foreach($gen as $item) {
                 $match = array_shift($matches);
                 
                 $this->assertEquals($match,$item);
+                $c++;
             }
+            
+            $this->assertEquals(3, $c);
         }
     }
 }

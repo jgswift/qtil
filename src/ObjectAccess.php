@@ -1,6 +1,10 @@
 <?php
 namespace qtil {
+    use restructr\Traits\ArrayEnumerable;
+    
     trait ObjectAccess {
+        use ArrayEnumerable;
+        
         /**
          * Checks if local access list holds an item at given offset
          * @param mixed $offset
@@ -11,7 +15,11 @@ namespace qtil {
                 return false;
             }
             
-            $property = Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
+            if(!isset($this->{$property})) {
+                $this->{$property} = [];
+            }
+            
             return array_key_exists($offset, $this->{$property});
         }
 
@@ -22,7 +30,7 @@ namespace qtil {
          */
         public function &__get($offset) {
             if($this->__isset($offset)) {
-                $property = Access\Registry::getAccessProperty($this);
+                $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
                 return $this->{$property}[$offset];
             }
 
@@ -36,7 +44,11 @@ namespace qtil {
          * @param mixed $value
          */
         public function __set($offset, $value) {
-            $property = Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
+            if(!isset($this->{$property})) {
+                $this->{$property} = [];
+            }
+            
             $this->{$property}[$offset] = $value;
         }
 
@@ -45,7 +57,7 @@ namespace qtil {
          * @param mixed $offset
          */
         public function __unset($offset) {
-            $property = Access\Registry::getAccessProperty($this);
+            $property = defined('static::$DOMAIN_PROPERTY') ? static::$DOMAIN_PROPERTY : 'data';
             unset($this->{$property}[$offset]);
         }
     }

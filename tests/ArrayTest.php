@@ -40,7 +40,7 @@ namespace qtil\Tests {
             
             $foo['bar'] = 'baz';
             
-            $array = $foo->data;
+            $array = $foo->toArray();
             
             $isArray = is_array($array);
             $count = count($array);
@@ -217,7 +217,7 @@ namespace qtil\Tests {
             
             $this->assertEquals(1,count($fooArray));
             
-            $arr = $fooArray->data;
+            $arr = $fooArray->toArray();
             $keys = array_keys($arr);
             $this->assertEquals(0,$keys[0]);
         }

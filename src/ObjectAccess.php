@@ -1,7 +1,5 @@
 <?php
 namespace qtil {
-    use restructr\Traits\ArrayEnumerable;
-    
     trait ObjectAccess {
         use ArrayEnumerable;
         

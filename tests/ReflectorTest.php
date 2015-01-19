@@ -14,5 +14,27 @@ namespace qtil\Tests {
             
             $this->assertEquals(true,$accessible);
         }
+        
+        function testExtractClassInfo() {
+            $result = \qtil\ReflectorUtil::extractClassInfo(self::class);
+            $this->assertEquals([
+                'qtil',
+                'Tests'
+            ], $result['namespace']);
+            
+            $this->assertEquals('ReflectorTest', $result['classname']);
+        }
+        
+        function testGetClassName() {
+            $className = \qtil\ReflectorUtil::getClassName(self::class);
+            
+            $this->assertEquals('ReflectorTest', $className);
+        }
+        
+        function testUsesTrait() {
+            $collection = new \qtil\Collection();
+            
+            $this->assertTrue(\qtil\ReflectorUtil::usesTrait($collection, 'qtil\ArrayEnumerable'));
+        }
     }
 }

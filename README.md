@@ -397,23 +397,22 @@ namespace OtherQueryTypes {
     }
 }
 
-// create a query from above chain classes
+// create a query using above chain classes
 $query = new Query;
 
 $query->select()->from();
 
 var_dump(count($query->getLinks())); // 2
 
-// add a second namespace in local scope to the query classes
-// this namespace extension will only apply for this query instance
+// this namespace extension will only extend this individual query instance
 $query->addNamespace("OtherQueryTypes");
 
 $query->within();
 
 var_dump(count($query->getLinks())); // 3
 
-// add a second namespace class-wide so all instantiated instances may use it for the same effect
-qtil\Chain\Registry::addNamespace('Query','OtherQueryTypes');
+// add a second namespace globally to extend every instantiated object of this type.
+qtil\Chain\ClassRegistry::addNamespace('Query','OtherQueryTypes');
 ```
 
 Note: any traits that use magic methods such as __get, __set, etc. are not compatible with eachother unless you provide a custom implementation to manually route duplicate methods.  See the [php traits documentation](http://us2.php.net/traits), specifically the insteadof operator.

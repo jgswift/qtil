@@ -57,5 +57,17 @@ namespace qtil\Tests {
             
             $query->Select()->Statement();
         }
+        
+        function testGlobalChainRegistry() {
+            $query = new Mock\QueryChain(true);
+            
+            \qtil\Chain\ClassRegistry::addNamespace('qtil\Tests\Mock\QueryChain', 'qtil\Tests\Mock\ExtendedQueryChain');
+            
+            $query->Select()->From()->Join();
+            
+            $count = count($query->getLinks());
+            
+            $this->assertEquals(3,$count);
+        }
     }
 }

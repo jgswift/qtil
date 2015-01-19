@@ -23,7 +23,9 @@ namespace qtil\Chain {
          * @return string
          */        
         public static function getQualifiedName($object,$name, $suffix=null) {
-            $chainNamespaces = self::getNamespaces($object);
+            $chainNamespaces = array_merge(self::getNamespaces($object),ClassRegistry::getNamespaces($object));
+            
+            //var_dump(ClassRegistry::getNamespaces($object));
             
             foreach($chainNamespaces as $chainNamespace) {
                 $qualifiedNames = [];
@@ -49,16 +51,16 @@ namespace qtil\Chain {
          * @return string
          */
         public static function getLinkProperty($object) {
-            $uid = self::identify($object);
+            $uid = static::identify($object);
             
-            if(!array_key_exists($uid, self::$linkProperty)) {
-                self::$linkProperty[$uid] = 'links';
+            if(!array_key_exists($uid, static::$linkProperty)) {
+                static::$linkProperty[$uid] = 'links';
                 if(!isset($object->links)) {
                     $object->links = [];
                 }
             }
             
-            return self::$linkProperty[$uid];
+            return static::$linkProperty[$uid];
         }
         
         /**
@@ -68,9 +70,9 @@ namespace qtil\Chain {
          * @return string
          */
         public static function setLinkProperty($object,$property) {
-            $uid = self::identify($object);
+            $uid = static::identify($object);
             
-            self::$linkProperty[$uid] = $property;
+            static::$linkProperty[$uid] = $property;
             
             return $property;
         }
@@ -81,12 +83,20 @@ namespace qtil\Chain {
          * @return array
          */
         public static function getNamespaces($object) {
-            $uid = self::identify($object);
-            if(!array_key_exists($uid, self::$chainNamespace)) {
-                self::$chainNamespace[$uid] = array_merge([get_class($object)],class_parents($object));
+            $uid = static::identify($object);
+            if(is_object($object)) {
+                $class = get_class($object);
+            } elseif(is_string($object) && class_exists($object)) {
+                $class = $object;
+            } 
+            
+            $parents = class_parents($class);
+            
+            if(!array_key_exists($uid, static::$chainNamespace)) {
+                static::$chainNamespace[$uid] = array_merge([$class],$parents);
             }
 
-            return self::$chainNamespace[$uid];
+            return static::$chainNamespace[$uid];
         }
         
         /**
@@ -96,14 +106,21 @@ namespace qtil\Chain {
          * @return string
          */
         public static function addNamespace($object,$namespace) {
-            $uid = self::identify($object);
+            $uid = static::identify($object);
+            if(is_object($object)) {
+                $class = get_class($object);
+            } elseif(is_string($object) && class_exists($object)) {
+                $class = $object;
+            } 
             
-            if(!array_key_exists($uid, self::$chainNamespace)) {
-                self::$chainNamespace[$uid] = array_merge([get_class($object)],class_parents($object));
+            $parents = class_parents($class);
+            
+            if(!array_key_exists($uid, static::$chainNamespace)) {
+                static::$chainNamespace[$uid] = array_merge([$class],$parents);
             }
             
-            if(!in_array($namespace, self::$chainNamespace[$uid])) {
-                self::$chainNamespace[$uid][] = $namespace;
+            if(!in_array($namespace, static::$chainNamespace[$uid])) {
+                static::$chainNamespace[$uid][] = $namespace;
             }
             
             return $namespace;
@@ -115,12 +132,12 @@ namespace qtil\Chain {
          * @param string $namespace
          */
         public static function removeNamespace($object,$namespace) {
-            $uid = self::identify($object);
+            $uid = static::identify($object);
             
-            if(array_key_exists($uid, self::$chainNamespace)) {
-                $key = array_search($namespace,self::$chainNamespace[$uid]);
+            if(array_key_exists($uid, static::$chainNamespace)) {
+                $key = array_search($namespace,static::$chainNamespace[$uid]);
                 if($key) {
-                    unset(self::$chainNamespace[$uid][$key]);
+                    unset(static::$chainNamespace[$uid][$key]);
                 }
             }
         }

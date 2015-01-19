@@ -25,12 +25,8 @@ namespace qtil {
          * Applies function to every value of array
          * @param callable $callable
          */
-        function apply(callable $callable) {
-            $array = $this->toArray();
-            
-            array_walk($array,$callable);
-            
-            $this->fromArray($array);
+        function apply($callable) {
+            return array_walk($this->{static::$DOMAIN_PROPERTY},$callable);
         }
         
         /**
@@ -54,6 +50,11 @@ namespace qtil {
          * @return self
          */
         public function splice($start, $amount = null, $replacement = []) {
+            if(empty($replacement) && is_array($amount)) {
+                $replacement = $amount;
+                $amount = null;
+            }
+            
             $array = $this->toArray();
             
             $this->fromArray(array_splice($array,$start,$amount,$replacement));

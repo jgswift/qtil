@@ -127,6 +127,86 @@ namespace qtil\Tests {
             $this->assertEquals(0,$count);
         }
         
+        function testCollectionApply() {
+            $data = ['foo'=>'bar'];
+            
+            $collection = new qtil\Collection();
+            
+            $collection->merge($data);
+            
+            $collection->apply(function(&$val) {
+                $val = strtoupper($val);
+            });
+            
+            $this->assertEquals('BAR',$collection['foo']);
+        }
+        
+        function testCollectionSlice() {
+            $data = range(0,10);
+            
+            $collection = new qtil\Collection();
+            
+            $collection->merge($data);
+            
+            $collection = $collection->slice(2,4);
+            
+            $this->assertEquals(4,count($collection));
+        }
+        
+        function testCollectionSplice() {
+            $data = range(0,3);
+            
+            $collection = new qtil\Collection();
+            
+            $collection->merge($data);
+            
+            $collection->splice(2,1,[3,4]);
+            
+            $this->assertEquals(1,count($collection));
+        }
+        
+        function testCollectionContains() {
+            $data = range(0,3);
+            
+            $collection = new qtil\Collection();
+            
+            $collection->merge($data);
+            
+            $this->assertTrue($collection->contains(2));
+        }
+        
+        function testCollectionFirst() {
+            $data = range(0,3);
+            
+            $collection = new qtil\Collection();
+            
+            $collection->merge($data);
+            
+            $this->assertEquals(0,$collection->first());
+        }
+        
+        function testCollectionLast() {
+            $data = range(0,3);
+            
+            $collection = new qtil\Collection();
+            
+            $collection->merge($data);
+            
+            $this->assertEquals(3,$collection->last());
+        }
+        
+        function testCollectionFromCollection() {
+            $data = range(0,3);
+            $collection = new qtil\Collection();
+            
+            $collection->merge($data);
+            
+            $collection2 = new qtil\Collection();
+            $collection2->fromCollection($collection);
+            
+            $this->assertEquals($collection->toArray(),$collection2->toArray());
+        }
+        
         function testCollectionGlobalAlias() {
             $data1 = ['foo'=>'bar'];
             $data2 = ['baz'=>'bob'];

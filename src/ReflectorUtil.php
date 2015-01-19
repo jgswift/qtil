@@ -40,7 +40,11 @@ namespace qtil {
          */
         public static function usesTrait($class, $trait,$recursive=false) {
             if(($traits = self::classUses($class,$trait,$recursive)) !== false) {
-                return \in_array($trait, $traits);
+                if($traits === true) {
+                    return true;
+                } elseif(is_array($traits)) {
+                    return \in_array($trait, $traits);
+                }
             }
 
             return false;

@@ -118,6 +118,6 @@ namespace qtil\Interfaces {
          * @param callable $callable
          * @return void
          */
-        function apply(callable $callable);
+        function apply($callable);
     }
 }

@@ -1,9 +1,11 @@
 <?php
 namespace qtil\Interfaces {
+    use restructr\Interfaces\Enumerable;
+    
     /**
      * @codeCoverageIgnore
      */
-    interface Collection extends \ArrayAccess, \Countable, \IteratorAggregate {
+    interface Collection extends Enumerable, \ArrayAccess, \Countable, \IteratorAggregate {
         
         /**
          * Helper method to populate local data

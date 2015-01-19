@@ -112,6 +112,7 @@ namespace qtil {
          */
         public function registerNamespace($namespace) {
             Chain\Registry::addNamespace($this, $namespace);
+            return $this;
         }
         
         /**
@@ -120,6 +121,7 @@ namespace qtil {
          */
         public function unregisterNamespace($namespace) {
             Chain\Registry::removeNamespace($this, $namespace);
+            return $this;
         }
 
         /**

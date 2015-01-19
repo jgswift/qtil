@@ -1,7 +1,6 @@
 <?php
 namespace qtil\Chain {
     use qtil;
-    use qtil\Identifier;
     
     class Registry extends qtil\Registry {
         /**
@@ -78,19 +77,33 @@ namespace qtil\Chain {
         }
         
         /**
-         * Retrieves namespace where link classes exist
+         * Helper method to retrieve relevant chain classes
          * @param mixed $object
          * @return array
+         * @throws \InvalidArgumentException
          */
-        public static function getNamespaces($object) {
+        private static function getChainData($object) {
             $uid = static::identify($object);
             if(is_object($object)) {
                 $class = get_class($object);
             } elseif(is_string($object) && class_exists($object)) {
                 $class = $object;
-            } 
+            } else {
+                throw new \InvalidArgumentException;
+            }
             
             $parents = class_parents($class);
+            
+            return [$uid, $class, $parents];
+        }
+        
+        /**
+         * Retrieves namespace where link classes exist
+         * @param mixed $object
+         * @return array
+         */
+        public static function getNamespaces($object) {
+            list($uid, $class, $parents) = self::getChainData($object);
             
             if(!array_key_exists($uid, static::$chainNamespace)) {
                 static::$chainNamespace[$uid] = array_merge([$class],$parents);
@@ -106,14 +119,7 @@ namespace qtil\Chain {
          * @return string
          */
         public static function addNamespace($object,$namespace) {
-            $uid = static::identify($object);
-            if(is_object($object)) {
-                $class = get_class($object);
-            } elseif(is_string($object) && class_exists($object)) {
-                $class = $object;
-            } 
-            
-            $parents = class_parents($class);
+            list($uid, $class, $parents) = self::getChainData($object);
             
             if(!array_key_exists($uid, static::$chainNamespace)) {
                 static::$chainNamespace[$uid] = array_merge([$class],$parents);

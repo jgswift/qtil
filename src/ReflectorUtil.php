@@ -52,9 +52,9 @@ namespace qtil {
         
         /**
          * 
-         * @param type $class
-         * @param type $trait
-         * @param type $recursive
+         * @param mixed $class
+         * @param string $trait
+         * @param boolean $recursive
          * @return boolean
          */
         public static function classUses($class,$trait,$recursive=true) {
